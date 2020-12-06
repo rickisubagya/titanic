@@ -1,0 +1,101 @@
+---
+title: "Titanic"
+author: "Ricki Subagya"
+date: "12/6/2020"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    df_print: paged
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Importing data train
+
+```{r}
+train <- read.csv("data_input/train.csv")
+```
+
+# Exploring data
+
+```{r}
+str(train)
+```
+
+
+```{r}
+train$Pclass <- as.factor(train$Pclass)
+train$Sex <- as.factor(train$Sex)
+train$Embarked <- as.factor(train$Embarked)
+```
+
+
+```{r}
+summary(train)
+```
+
+# Most survived passanger by passanger class
+
+```{r}
+table(train$Survived, train$Pclass)
+```
+
+quick summary : 
+
+* the most survived passenger come from the passenger on **class 1**
+* the most not survived passenger come from the passenger on **class 3**
+
+# Most survived passanger by passanger sex/gender
+
+```{r}
+table(train$Survived, train$Sex)
+```
+
+quick summary : 
+
+* female passenger is the most gender of passenger who survived.
+
+# Most survived passanger by port embarked
+
+```{r}
+table(train$Survived, train$Embarked)
+```
+
+quick summary : 
+
+* the most survived passenger come from the passenger who embarked from port **S**
+
+* the most not survived passenger come from the passenger who embarked from port **S** too
+
+# number passanger survived
+
+```{r}
+surv <- train[train$Survived == "1", ]
+nrow(surv)
+```
+quick summary : 
+
+* there are 342 passenger who survived from accident
+
+```{r}
+median(train$Fare)
+median(surv$Fare)
+```
+
+quick summary :
+
+* passenger who survived had an average fare above average fare all passenger 
+
+```{r}
+cor(train$Survived, train$Fare)
+```
+quick summary : 
+
+* about passenger who survived and fare had a weak positive correlation
